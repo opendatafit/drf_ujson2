@@ -19,6 +19,7 @@ class UJSONRenderer(JSONRenderer):
     # Used to enable special encoding of "unsafe" HTML characters into safer
     # Unicode sequences.
     encode_html_chars: bool = False
+    reject_bytes: bool = False
 
     def render(
         self,
@@ -37,6 +38,7 @@ class UJSONRenderer(JSONRenderer):
         ret = ujson.dumps(
             data,
             ensure_ascii=self.ensure_ascii,
+            reject_bytes=self.reject_bytes,
             escape_forward_slashes=self.escape_forward_slashes,
             encode_html_chars=self.encode_html_chars,
             indent=indent or 0,
