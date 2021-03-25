@@ -44,6 +44,11 @@ class UJSONRenderer(JSONRenderer):
             indent=indent or 0,
         )
 
+        # Replace any Infinity values with strings
+        ret = ret.replace(":Inf", ': "Infinity"').replace(
+            ":-Inf", ': "-Infinity"'
+        )
+
         # force return value to unicode
         if isinstance(ret, str):
             # We always fully escape \u2028 and \u2029 to ensure we output JSON
